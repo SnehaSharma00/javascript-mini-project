@@ -1676,3 +1676,79 @@ const showTrendingVideos = ()=>{
 };
 
 showTrendingVideos();
+//video 2
+
+const getSuggestionAPI = (searchText)=>{
+    console.log("search auto suggest api called", searchText)
+//     const request = fetch(`https://youtube138.p.rapidapi.com/auto-complete/?q=${searchText}=en&gl=US`,{
+//     method: 'GET',
+//     headers:{
+//         "x-rapidapi-host":"youtube138.p.rapidapi.com",
+// 	    "x-rapidapi-key":"54bc0fd5b1msh6fab8e201fb239bp1f698bjsnde4838888fb1",
+//     },
+// });
+//     request
+//     .then((response)=>{
+//         const pr2 = response.json();//convert data packets to json
+//         pr2.then((dataa)=>{
+//            //console.log("result: " ,dataa);
+            renderSuggestionList();
+//         })
+//     })
+//     .catch((err)=>{
+//         alert("Suggestions Error: ", err.message);
+//     });
+
+}
+    let id = null;
+const getSmartSuggestionsAPI = (txt)=>{
+    clearTimeout(id); // wont clear anything if id is null
+    id = setTimeout(()=>{
+        getSuggestionAPI(txt);
+        },2000);
+};
+
+const handleAutoSuggest = (e)=>{
+    const searchText = e.target.value;
+    console.log(searchText);
+    getSmartSuggestionsAPI(searchText);
+};
+
+const searchSuggestionsContainerElement = document.getElementById("search-suggestions-container");
+
+const searchInputElem = document.getElementById("search-text-input");
+
+const renderSuggestionList = (obj)=>{
+    const dummyObj = {
+    "query": "comedy=en",
+    "results": [
+        "comedy english",
+        "comedy english movies",
+        "comedy enforcement",
+        "comedy english full movie",
+        "comedy english video",
+        "comedy english song",
+        "comedy english series",
+        "comedy english speaking",
+        "comedy english language",
+        "comedy english film",
+        "comedy engineer",
+        "comedy english shorts",
+        "comedy english ki",
+        "comedy english stand up"
+    ]
+};
+    const {results} = dummyObj; //destructuring
+
+    results.slice(0,10).forEach((result)=>{
+        const newText = document.createElement('p');
+        newText.innerText = result;
+        
+        newText.addEventListener('click',(e)=>{
+            console.log("click", e.target.innerText);
+            searchInputElem.value = e.target.innerText;
+            searchSuggestionsContainerElement.innerHTML = "";
+        });
+        searchSuggestionsContainerElement.appendChild(newText);
+    });
+};

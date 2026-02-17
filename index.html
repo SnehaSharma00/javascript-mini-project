@@ -10,8 +10,11 @@
     <div class="layout-container">
         <header>
             <div class="search-container">
-                <input type ="text" name="search-box">
+                <input type ="text" name="search-box" onkeyup="handleAutoSuggest(event)" id="search-text-input">
                 <button>Search</button>
+                <div id="search-suggestions-container">   
+                </div>
+                
             </div>
         </header>
         <aside></aside>
