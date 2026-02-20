@@ -1752,3 +1752,8 @@ const renderSuggestionList = (obj)=>{
         searchSuggestionsContainerElement.appendChild(newText);
     });
 };
+
+const handleSearch = ()=>{
+    const val = searchInputElem.value;
+    window.open(`./search-page.html?searchText=${val}`, "_self");
+};
